@@ -8,10 +8,16 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    private lazy var viewManager: ViewManager = {
+        return ViewManager(controller: self)
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        view.backgroundColor = UIColor(hex: "#464C75FF")
+        viewManager.createAppHeader(title: "Lorem ipsum dolor \nsit amet, consectet")
     }
 
 
