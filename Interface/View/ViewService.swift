@@ -27,4 +27,18 @@ class ViewService {
         
         return gradient
     }
+    
+    func createCardView(gradientColor: String, width w: CGFloat) -> UIView{
+        let card = UIView()
+        card.translatesAutoresizingMaskIntoConstraints = false
+        card.widthAnchor.constraint(equalToConstant: w).isActive = true
+        card.layer.cornerRadius = 25
+        card.layer.cornerCurve = .continuous
+        
+        let gradient = gradientLayer(startColor: UIColor(hex: gradientColor))
+        card.layer.addSublayer(gradient)
+        return card
+    }
+    
+    
 }

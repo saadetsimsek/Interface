@@ -13,6 +13,9 @@ class ViewManager {
     var view = UIView()
     private let viewService = ViewService.shared
     private var headerStackView = UIStackView()
+    lazy private var width: CGFloat = {
+        return (view.frame.width/2) - 40
+    }()
     
     init(controller: UIViewController, view: UIView = UIView()) {
         self.controller = controller
@@ -40,20 +43,22 @@ class ViewManager {
         }
         
         let headerButton = {
-            let button = UIButton()
+            let button = UIButton(primaryAction: nil // UIAction(handler: { _ in
+                                  //     print(1)          })
+            )
             button.translatesAutoresizingMaskIntoConstraints = false
             button.widthAnchor.constraint(equalToConstant: 31).isActive = true
             button.heightAnchor.constraint(equalToConstant: 31).isActive = true
             button.layer.cornerRadius = 16
             button.clipsToBounds = true
             button.tintColor = .white
-          //  button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+            //  button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
             let gradient = viewService.gradientLayer(startColor: UIColor(hex: "#B2A1F7FF"), frame: CGRect(x: 0,
                                                                                                           y: 0,
                                                                                                           width: 31,
                                                                                                           height: 31))
             button.layer.addSublayer(gradient)
-           
+            
             let buttonImage : UIImageView = {
                 let image = UIImageView()
                 image.image = UIImage(systemName: "magnifyingglass")
@@ -84,4 +89,16 @@ class ViewManager {
         ])
     }
     
+    func createCards(){
+        
+    }
+    
+    private func createLongCardContent(for item: UIView, image: UIImage, title: String, rate: Float, views: Int) -> UIView{
+        
+        return item
+    }
+    
+    private func createShortCardContent(){
+        
+    }
 }
