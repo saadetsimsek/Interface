@@ -95,6 +95,51 @@ class ViewManager {
     
     private func createLongCardContent(for item: UIView, image: UIImage, title: String, rate: Float, views: Int) -> UIView{
         
+        let cardImage = viewService.createCardImage(image: image)
+        let cardTitle = viewService.creareCardTitle(title: title)
+        let rateStack = viewService.createRateStackView(reate: rate)
+        let views = viewService.getViewLabel(views: views)
+        
+        lazy var topStack = {
+            let stack = UIStackView()
+            stack.axis = .vertical
+            stack.spacing = 12
+            stack.alignment = .leading
+            stack.addArrangedSubview(cardImage)
+            stack.addArrangedSubview(cardTitle)
+            return stack
+        }()
+        
+        lazy var bottomStack = {
+            let stack = UIStackView()
+            stack.axis = .vertical
+            stack.spacing = 2
+            stack.alignment = .leading
+            stack.addArrangedSubview(rateStack)
+            stack.addArrangedSubview(views)
+            return stack
+        }()
+        
+        var mainStackView = {
+            let stackView = UIStackView()
+            stackView.axis = .vertical
+            stackView.alignment = .leading
+            stackView.spacing = 21
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            
+            stackView.addArrangedSubview(topStack)
+            stackView.addArrangedSubview(bottomStack)
+            return stackView
+        }()
+        view.addSubview(mainStackView)
+        
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: views.topAnchor, constant: 25),
+            mainStackView.leadingAnchor.constraint(equalTo: views.leadingAnchor, constant: 25),
+            mainStackView.trailingAnchor.constraint(equalTo: views.trailingAnchor, constant: -25),
+            mainStackView.bottomAnchor.constraint(equalTo: views.bottomAnchor, constant: -27)
+        ])
+        
         return item
     }
     

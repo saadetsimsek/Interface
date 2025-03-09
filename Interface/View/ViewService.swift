@@ -40,5 +40,58 @@ class ViewService {
         return card
     }
     
+    func createCardImage(image: UIImage) -> UIImageView {
+        let images = UIImageView()
+        images.image = image
+        images.translatesAutoresizingMaskIntoConstraints = false
+        images.widthAnchor.constraint(equalToConstant: 27).isActive = true
+        images.heightAnchor.constraint(equalToConstant: 27).isActive = true
+        return images
+    }
     
+    func creareCardTitle(title: String) -> UILabel{
+        let label = UILabel()
+        label.text = title
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        return label
+    }
+    
+    func createRateStackView(reate: Float) -> UIStackView {
+        var rateStackView = {
+            let stack = UIStackView()
+            stack.axis = .horizontal
+            stack.distribution = .fillEqually
+            stack.alignment = .leading
+            stack.spacing = 2
+            return stack
+        }()
+        //STAR
+        let rateImage = UIImageView()
+        rateImage.image = UIImage(named: "star.fill")
+        rateImage.translatesAutoresizingMaskIntoConstraints = false
+        rateImage.tintColor = .white
+        
+        rateImage.widthAnchor.constraint(equalToConstant: 10).isActive = true
+        rateImage.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        //RATE
+        let rateLabel = UILabel()
+        rateLabel.text = "\(reate)"
+        rateLabel.textColor = .white
+        rateLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        
+        
+        return rateStackView
+    }
+    
+    func getViewLabel(views: Int) -> UILabel {
+        let label = UILabel()
+        label.text = "\(views) views"
+        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.textColor = .white
+        return label
+    }
 }
