@@ -90,7 +90,16 @@ class ViewManager {
     }
     
     func createCards(){
-        
+        let tiktokCard = createLongCardContent(for: viewService.createCardView(gradientColor: "#58CFEFFF", width: width),
+                                               image: .tiktok,
+                                               title: "Tiktok /nads",
+                                               rate: 4.9,
+                                               views: 5435)
+        view.addSubview(tiktokCard)
+        NSLayoutConstraint.activate([
+            tiktokCard.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 40),
+            tiktokCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
+        ])
     }
     
     private func createLongCardContent(for item: UIView, image: UIImage, title: String, rate: Float, views: Int) -> UIView{
@@ -120,7 +129,7 @@ class ViewManager {
             return stack
         }()
         
-        var mainStackView = {
+        let mainStackView = {
             let stackView = UIStackView()
             stackView.axis = .vertical
             stackView.alignment = .leading
@@ -131,19 +140,52 @@ class ViewManager {
             stackView.addArrangedSubview(bottomStack)
             return stackView
         }()
-        view.addSubview(mainStackView)
+        item.addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: views.topAnchor, constant: 25),
-            mainStackView.leadingAnchor.constraint(equalTo: views.leadingAnchor, constant: 25),
-            mainStackView.trailingAnchor.constraint(equalTo: views.trailingAnchor, constant: -25),
-            mainStackView.bottomAnchor.constraint(equalTo: views.bottomAnchor, constant: -27)
+            mainStackView.topAnchor.constraint(equalTo: item.topAnchor, constant: 25),
+            mainStackView.leadingAnchor.constraint(equalTo: item.leadingAnchor, constant: 25),
+            mainStackView.trailingAnchor.constraint(equalTo: item.trailingAnchor, constant: -25),
+            mainStackView.bottomAnchor.constraint(equalTo: item.bottomAnchor, constant: -20)
         ])
         
         return item
     }
     
-    private func createShortCardContent(){
+    private func createShortCardContent(for item: UIView, image: UIImage, title: String) -> UIView{
+        let cardImageView = viewService.createCardImage(image: image)
+        let cardTitle = viewService.creareCardTitle(title: title)
         
+        var nextButton = {
+            let button = UIButton(primaryAction: nil)
+            button.setImage(UIImage(systemName: "arrow.right"), for: .normal)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.widthAnchor.constraint(equalToConstant: 14).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            button.tintColor = .white
+            return button
+        }()
+        
+        let hStackView = {
+            let stack = UIStackView()
+            stack.axis = .horizontal
+            stack.distribution = .equalSpacing
+            stack.alignment = .center
+            stack.addArrangedSubview(cardImageView)
+            stack.addArrangedSubview(nextButton)
+            return stack
+        }()
+        
+        let vStack = {
+            let stack = UIStackView()
+            stack.axis = .vertical
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            stack.spacing = 13
+            return stack
+        }()
+        
+        
+        
+        return item
     }
 }

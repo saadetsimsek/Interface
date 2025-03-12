@@ -23,7 +23,7 @@ class ViewService {
         gradient.startPoint = CGPoint(x: 0, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 1)
         
-        gradient.locations = [-0.3, 0.3]
+        gradient.locations = [-0.3, 0.4] // gradiend show ratio
         
         return gradient
     }
@@ -37,6 +37,8 @@ class ViewService {
         
         let gradient = gradientLayer(startColor: UIColor(hex: gradientColor))
         card.layer.addSublayer(gradient)
+        
+        card.clipsToBounds = true
         return card
     }
     
@@ -62,6 +64,7 @@ class ViewService {
     func createRateStackView(reate: Float) -> UIStackView {
         var rateStackView = {
             let stack = UIStackView()
+            stack.alignment = .center
             stack.axis = .horizontal
             stack.distribution = .fillEqually
             stack.alignment = .leading
@@ -73,6 +76,8 @@ class ViewService {
         rateImage.image = UIImage(named: "star.fill")
         rateImage.translatesAutoresizingMaskIntoConstraints = false
         rateImage.tintColor = .white
+    //    rateImage.contentMode = .scaleAspectFill ?
+     //   rateImage.clipsToBounds = true ?
         
         rateImage.widthAnchor.constraint(equalToConstant: 10).isActive = true
         rateImage.heightAnchor.constraint(equalToConstant: 10).isActive = true
@@ -83,7 +88,8 @@ class ViewService {
         rateLabel.textColor = .white
         rateLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         
-        
+        rateStackView.addArrangedSubview(rateImage)
+        rateStackView.addArrangedSubview(rateLabel)
         return rateStackView
     }
     
