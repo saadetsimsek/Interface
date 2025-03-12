@@ -13,6 +13,8 @@ class ViewManager {
     var view = UIView()
     private let viewService = ViewService.shared
     private var headerStackView = UIStackView()
+    private var cardStack = UIStackView()
+    
     lazy private var width: CGFloat = {
         return (view.frame.width/2) - 40
     }()
@@ -92,7 +94,7 @@ class ViewManager {
     func createCards(){
         let tiktokCard = createLongCardContent(for: viewService.createCardView(gradientColor: "#58CFEFFF", width: width),
                                                image: .tiktok,
-                                               title: "Tiktok /nads",
+                                               title: "Tiktok \nads",
                                                rate: 4.9,
                                                views: 5435)
         
@@ -115,7 +117,25 @@ class ViewManager {
         let lStack = viewService.getSideStack(items: [tiktokCard,clockCard])
         let rStack = viewService.getSideStack(items: [instagramCard, youtubeCard])
         
+        cardStack = {
+            let stack = UIStackView()
+            stack.axis = .horizontal
+            stack.alignment = .fill
+            stack.distribution = .equalSpacing
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            
+            stack.addArrangedSubview(lStack)
+            stack.addArrangedSubview(rStack)
+            return stack
+        }()
         
+        view.addSubview(cardStack)
+        
+        NSLayoutConstraint.activate([
+            cardStack.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 30),
+            cardStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            cardStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+        ])
         
     }
     
@@ -219,5 +239,132 @@ class ViewManager {
         return item
     }
     
+    func createService(){
+        
+        let headerTitle = {
+            let label = UILabel()
+            label.text = "Deevelopment"
+            label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+            label.textColor = .white
+            label.numberOfLines = 0
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        
+        view.addSubview(headerTitle)
+        
+        
+        let serviceCard = {
+            let serviceCard = UIView()
+            serviceCard.translatesAutoresizingMaskIntoConstraints = false
+            serviceCard.layer.cornerRadius = 25
+            serviceCard.layer.cornerCurve = .continuous
+            
+            let gradiemt = viewService.gradientLayer(startColor: UIColor(hex: "#949AC5FF"), frame: CGRect(x: 0, y: 0, width: 400, height: 200))
+            serviceCard.layer.addSublayer(gradiemt)
+            serviceCard.clipsToBounds = true
+            return serviceCard
+        }()
+        
+        view.addSubview(serviceCard)
+        
+        let serviceImage = {
+            let image = UIImageView()
+            image.image = .baner
+            image.contentMode = .scaleAspectFit
+            image.clipsToBounds = true
+            
+            image.widthAnchor.constraint(equalToConstant: 150).isActive = true
+            image.heightAnchor.constraint(equalToConstant: 150).isActive = true
+            return image
+        }()
+        
+        //VStack
+        let serviceCardTitle = viewService.creareCardTitle(title: "Desing & \nDevelopment")
+        let rate = viewService.createRateStackView(reate: 4.5)
+        
+        let infoImage = {
+            let image = UIImageView()
+            image.translatesAutoresizingMaskIntoConstraints = false
+            image.image = .comp
+            image.widthAnchor.constraint(equalToConstant: 15).isActive = true
+            image.heightAnchor.constraint(equalToConstant: 15).isActive = true
+            return image
+        }()
+        
+        let infoTitle = {
+            let label = UILabel()
+            label.text = "Complete Desing"
+            label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+            label.textColor = .white
+            return label
+        }()
+        
+        let infoStack = {
+            let stack = UIStackView()
+            stack.axis = .horizontal
+            stack.alignment = .leading
+            stack.spacing = 5
+            stack.addArrangedSubview(infoImage)
+            stack.addArrangedSubview(infoTitle)
+            return stack
+        }()
+        
+        let priceLabel = {
+            let label = UILabel()
+            label.text = "$1000"
+            label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+            label.textColor = UIColor(hex: "#58CFEFFF")
+            return label
+        }()
+        
+        let vStack = {
+            let stack = UIStackView()
+            stack.axis = .vertical
+            stack.alignment = .leading
+            stack.spacing = 5
+            
+            stack.addArrangedSubview(serviceCardTitle)
+            stack.addArrangedSubview(rate)
+            stack.addArrangedSubview(infoStack)
+            
+            stack.addArrangedSubview(UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 5)))
+            
+            stack.addArrangedSubview(priceLabel)
+            return stack
+        }()
+        
+        //HStack
+        
+        let hStack = {
+            let stack = UIStackView()
+            stack.axis = .horizontal
+            stack.distribution = .equalSpacing
+            stack.alignment = .center
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            
+            stack.addArrangedSubview(serviceImage)
+            stack.addArrangedSubview(vStack)
+            return stack
+        }()
+        
+        view.addSubview(hStack)
+        
+        NSLayoutConstraint.activate([
+            headerTitle.topAnchor.constraint(equalTo: cardStack.bottomAnchor, constant: 40),
+            headerTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            headerTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            
+            serviceCard.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: 20),
+            serviceCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            serviceCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            serviceCard.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25),
+            
+            hStack.topAnchor.constraint(equalTo: serviceCard.topAnchor, constant: 25),
+            hStack.leadingAnchor.constraint(equalTo: serviceCard.leadingAnchor, constant: 25),
+            hStack.trailingAnchor.constraint(equalTo: serviceCard.trailingAnchor, constant: -25),
+            hStack.bottomAnchor.constraint(equalTo: serviceCard.bottomAnchor, constant: -25)
+        ])
+    }
     
 }

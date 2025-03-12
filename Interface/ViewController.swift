@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor(hex: "#464C75FF")
         viewManager.createAppHeader(title: "Lorem ipsum dolor \nsit amet, consectet")
         viewManager.createCards()
+        viewManager.createService()
     }
 
 

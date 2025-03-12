@@ -71,6 +71,7 @@ class ViewService {
             stack.spacing = 2
             return stack
         }()
+        
         //STAR
         let rateImage = UIImageView()
         rateImage.image = UIImage(named: "star.fill")
