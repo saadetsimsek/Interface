@@ -101,11 +101,22 @@ class ViewManager {
                                                image: .clock,
                                                title: "Art & Draw")
         
-        view.addSubview(clockCard)
-        NSLayoutConstraint.activate([
-            clockCard.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 40),
-            clockCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
-        ])
+        let instagramCard = createShortCardContent(for: viewService.createCardView(gradientColor: "#E79DA7FF", width: width),
+                                                   image: .insta,
+                                                   title: "Instagram")
+        
+        let youtubeCard = createLongCardContent(for: viewService.createCardView(gradientColor: "#B2A1F7FF", width: width),
+                                                image: .youtube,
+                                                title: "Youtube \nads",
+                                                rate: 4.2,
+                                                views: 3483)
+        
+        // intertwined stack - iç içe geçmiş stacklar
+        let lStack = viewService.getSideStack(items: [tiktokCard,clockCard])
+        let rStack = viewService.getSideStack(items: [instagramCard, youtubeCard])
+        
+        
+        
     }
     
     private func createLongCardContent(for item: UIView, image: UIImage, title: String, rate: Float, views: Int) -> UIView{
@@ -208,17 +219,5 @@ class ViewManager {
         return item
     }
     
-    func getSideStack(items: [UIView]) -> UIStackView {
-        
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.spacing = 17
-        stack.alignment = .fill
-        
-        items.forEach{ // sıranın her elemanını al bunu uygula
-            stack.addArrangedSubview($0)
-        }
-        
-        return stack
-    }
+    
 }

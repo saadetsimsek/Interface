@@ -100,4 +100,18 @@ class ViewService {
         label.textColor = .white
         return label
     }
+    
+    func getSideStack(items: [UIView]) -> UIStackView {
+        
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 17
+        stack.alignment = .fill
+        
+        items.forEach{ // sıranın her elemanını al bunu uygula
+            stack.addArrangedSubview($0)
+        }
+        
+        return stack
+    }
 }
