@@ -95,10 +95,16 @@ class ViewManager {
                                                title: "Tiktok /nads",
                                                rate: 4.9,
                                                views: 5435)
-        view.addSubview(tiktokCard)
+        
+        let clockCard = createShortCardContent(for: viewService.createCardView(gradientColor: "#5BD6B9FF",
+                                                                               width: width),
+                                               image: .clock,
+                                               title: "Art & Draw")
+        
+        view.addSubview(clockCard)
         NSLayoutConstraint.activate([
-            tiktokCard.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 40),
-            tiktokCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
+            clockCard.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 40),
+            clockCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
         ])
     }
     
@@ -146,7 +152,7 @@ class ViewManager {
             mainStackView.topAnchor.constraint(equalTo: item.topAnchor, constant: 25),
             mainStackView.leadingAnchor.constraint(equalTo: item.leadingAnchor, constant: 25),
             mainStackView.trailingAnchor.constraint(equalTo: item.trailingAnchor, constant: -25),
-            mainStackView.bottomAnchor.constraint(equalTo: item.bottomAnchor, constant: -20)
+            mainStackView.bottomAnchor.constraint(equalTo: item.bottomAnchor, constant: -30)
         ])
         
         return item
@@ -156,12 +162,12 @@ class ViewManager {
         let cardImageView = viewService.createCardImage(image: image)
         let cardTitle = viewService.creareCardTitle(title: title)
         
-        var nextButton = {
+        let nextButton = {
             let button = UIButton(primaryAction: nil)
             button.setImage(UIImage(systemName: "arrow.right"), for: .normal)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.widthAnchor.constraint(equalToConstant: 14).isActive = true
-            button.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            button.widthAnchor.constraint(equalToConstant: 18).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 14).isActive = true
             button.tintColor = .white
             return button
         }()
@@ -181,11 +187,38 @@ class ViewManager {
             stack.axis = .vertical
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.spacing = 13
+           // stack.alignment = .leading //buton resmin hemen yanına geliyor
+            
+            stack.addArrangedSubview(hStackView)
+            stack.addArrangedSubview(cardTitle)
+            
             return stack
         }()
         
+        item.addSubview(vStack)
+        
+        NSLayoutConstraint.activate([
+            vStack.topAnchor.constraint(equalTo: item.topAnchor, constant: 25),
+            vStack.leadingAnchor.constraint(equalTo: item.leadingAnchor, constant: 25),
+            vStack.trailingAnchor.constraint(equalTo: item.trailingAnchor, constant: -25),
+            vStack.bottomAnchor.constraint(equalTo: item.bottomAnchor, constant: -30)
+        ])
         
         
         return item
+    }
+    
+    func getSideStack(items: [UIView]) -> UIStackView {
+        
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 17
+        stack.alignment = .fill
+        
+        items.forEach{ // sıranın her elemanını al bunu uygula
+            stack.addArrangedSubview($0)
+        }
+        
+        return stack
     }
 }

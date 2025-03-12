@@ -62,7 +62,7 @@ class ViewService {
     }
     
     func createRateStackView(reate: Float) -> UIStackView {
-        var rateStackView = {
+        let rateStackView = {
             let stack = UIStackView()
             stack.alignment = .center
             stack.axis = .horizontal
