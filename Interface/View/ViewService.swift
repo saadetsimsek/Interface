@@ -74,11 +74,9 @@ class ViewService {
         
         //STAR
         let rateImage = UIImageView()
-        rateImage.image = UIImage(named: "star.fill")
+        rateImage.image = UIImage(systemName: "star.fill")
         rateImage.translatesAutoresizingMaskIntoConstraints = false
         rateImage.tintColor = .white
-    //    rateImage.contentMode = .scaleAspectFill ?
-     //   rateImage.clipsToBounds = true ?
         
         rateImage.widthAnchor.constraint(equalToConstant: 10).isActive = true
         rateImage.heightAnchor.constraint(equalToConstant: 10).isActive = true
@@ -91,6 +89,7 @@ class ViewService {
         
         rateStackView.addArrangedSubview(rateImage)
         rateStackView.addArrangedSubview(rateLabel)
+        
         return rateStackView
     }
     

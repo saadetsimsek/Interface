@@ -175,15 +175,17 @@ class ViewManager {
             
             stackView.addArrangedSubview(topStack)
             stackView.addArrangedSubview(bottomStack)
+            
             return stackView
         }()
+        
         item.addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: item.topAnchor, constant: 25),
             mainStackView.leadingAnchor.constraint(equalTo: item.leadingAnchor, constant: 25),
             mainStackView.trailingAnchor.constraint(equalTo: item.trailingAnchor, constant: -25),
-            mainStackView.bottomAnchor.constraint(equalTo: item.bottomAnchor, constant: -30)
+            mainStackView.bottomAnchor.constraint(equalTo: item.bottomAnchor, constant: -27)
         ])
         
         return item
